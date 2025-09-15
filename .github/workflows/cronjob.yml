@@ -28,9 +28,10 @@ jobs:
       - name: Restore storage state
         run: |
           mkdir -p .auth
-          echo "$STORAGE_STATE_B64" | base64 -d > .auth/storageState.json
+          printf "%s%s" "$STORAGE_STATE_B64_P1" "$STORAGE_STATE_B64_P2" | base64 -d > .auth/storageState.json
         env:
-          STORAGE_STATE_B64: ${{ secrets.STORAGE_STATE_B64 }}
+          STORAGE_STATE_B64_P1: ${{ secrets.STORAGE_STATE_B64_P1 }}
+          STORAGE_STATE_B64_P2: ${{ secrets.STORAGE_STATE_B64_P2 }}
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
@@ -53,3 +54,5 @@ jobs:
           name: playwright-videos
           path: test-results/**/video.webm
           if-no-files-found: ignore
+
+
