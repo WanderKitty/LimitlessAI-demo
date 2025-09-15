@@ -1,0 +1,21 @@
+{
+  "name": "limitless",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:setup": "npx playwright test -g \"Auth Setup\" --project=setup",
+    "test:debug": "npx playwright test -g \"Home Page\" --project=chromium --debug",
+    "audio:pad": "node scripts/pad-wav.js"
+    },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^24.3.1",
+    "dotenv": "^17.2.2",
+    "ffmpeg-static": "^5.2.0"
+  }
+}
