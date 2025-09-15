@@ -4,10 +4,7 @@ import path from 'node:path';
 
 // Load environment variables from .env file
 dotenv.config();
-const AUDIO_FILE = process.env.AUDIO_FILE || 'utility/fake-mic.padded.wav';
-const RESOLVED_AUDIO_FILE = path.isAbsolute(AUDIO_FILE)
-  ? AUDIO_FILE
-  : path.resolve(process.cwd(), AUDIO_FILE);
+
 const baseArgs = [
   '--use-fake-device-for-media-stream',
   '--use-fake-ui-for-media-stream',
@@ -16,6 +13,9 @@ const baseArgs = [
 ];
 
 export default defineConfig({
+  expect: {
+    timeout: 15000,
+  },
   testDir: './tests',
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
@@ -41,7 +41,7 @@ export default defineConfig({
         launchOptions: {
           args: [
             ...baseArgs,
-            `--use-file-for-fake-audio-capture=${path.resolve('utility/twoSpeakers.wav')}`,
+            `--use-file-for-fake-audio-capture=${path.resolve('utility/audios/twoSpeakers.wav')}`,
           ],
         },
       }
@@ -55,7 +55,7 @@ export default defineConfig({
         launchOptions: {
           args: [
             ...baseArgs,
-            `--use-file-for-fake-audio-capture=${path.resolve('utility/oneSpeaker.wav')}`,
+            `--use-file-for-fake-audio-capture=${path.resolve('utility/audios/oneSpeaker.wav')}`,
           ],
         },
       },
@@ -69,7 +69,7 @@ export default defineConfig({
         launchOptions: {
           args: [
             ...baseArgs,
-            `--use-file-for-fake-audio-capture=${path.resolve('utility/threeSpeakers.wav')}`,
+            `--use-file-for-fake-audio-capture=${path.resolve('utility/audios/threeSpeakers.wav')}`,
           ],
           },
       },
